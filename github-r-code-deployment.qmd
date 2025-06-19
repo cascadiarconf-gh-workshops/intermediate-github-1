@@ -1,6 +1,9 @@
 ---
 title: "Intermediate GitHub for R Users - R Code and Package Deployment via GitHub"
-format: revealjs
+format:
+  revealjs:
+    self-contained: true
+output-file: index.html
 ---
 
 ---
@@ -48,17 +51,39 @@ We assume you've already covered:
 
 ---
 
-## Example Folder Structure
+## So someone wants to share their GitHub R script... {.smaller}
 
-```
-project-name
-├── analysis
-│   └── my_script.R
-├── README.md
-└── .gitignore
+Just source their R scripts! (If public)
+
+- Inspect the code you are sourcing before running it (security, sanity, etc.)
+- Only source code from GitHub that you can trust
+- Inspect it again (maybe it changed)
+- Copy the URL from the R script in Github and run `source()` on it.
+
+
+```r
+source("https://raw.githubusercontent.com/cascadiarconf-gh-workshops/intermediate-github-1/main/scripts/test_func.R")
 ```
 
-> 📌 **Hands-On**: Clone starter repo, add/edit script, push changes.
+<br>
+
+Reach out to me later if you want to see how this works from **private repositories** (its a bit more complicated)
+
+## So someone wants to share their GitHub R script... {.smaller}
+
+It's a lightweight method. You could also
+
+- Clone the repository and use the script
+- Download the R script and source it locally
+
+However, none of these methods help your user with:
+
+- dependencies management
+- documentation
+- security
+- etc.
+
+There is a better way (although it takes some setup). 
 
 ---
 

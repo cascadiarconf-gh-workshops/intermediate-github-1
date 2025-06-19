@@ -243,16 +243,34 @@
 <li>Great for small projects and team collaboration</li>
 </ul>
 </section>
-<section id="example-folder-structure" class="slide level2">
-<h2>Example Folder Structure</h2>
-<pre><code>project-name
-├── analysis
-│   └── my_script.R
-├── README.md
-└── .gitignore</code></pre>
-<blockquote>
-<p>📌 <strong>Hands-On</strong>: Clone starter repo, add/edit script, push changes.</p>
-</blockquote>
+<section id="so-someone-wants-to-share-their-github-r-script" class="slide level2 smaller">
+<h2>So someone wants to share their GitHub R script…</h2>
+<p>Just source their R scripts! (If public)</p>
+<ul>
+<li>Inspect the code you are sourcing before running it (security, sanity, etc.)</li>
+<li>Only source code from GitHub that you can trust</li>
+<li>Inspect it again (maybe it changed)</li>
+<li>Copy the URL from the R script in Github and run <code>source()</code> on it.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">source</span>(<span class="st">"https://raw.githubusercontent.com/cascadiarconf-gh-workshops/intermediate-github-1/main/scripts/test_func.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<p>Reach out to me later if you want to see how this works from <strong>private repositories</strong> (its a bit more complicated)</p>
+</section>
+<section id="so-someone-wants-to-share-their-github-r-script-1" class="slide level2 smaller">
+<h2>So someone wants to share their GitHub R script…</h2>
+<p>It’s a lightweight method. You could also</p>
+<ul>
+<li>Clone the repository and use the script</li>
+<li>Download the R script and source it locally</li>
+</ul>
+<p>However, none of these methods help your user with:</p>
+<ul>
+<li>dependencies management</li>
+<li>documentation</li>
+<li>security</li>
+<li>etc.</li>
+</ul>
+<p>There is a better way (although it takes some setup).</p>
 </section>
 <section id="part-2-r-packages---a-step-further" class="slide level2">
 <h2>Part 2: R Packages - A Step Further</h2>
