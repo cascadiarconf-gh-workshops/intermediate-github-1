@@ -1,0 +1,248 @@
+---
+title: "Intermediate GitHub for R Users - R Code and Package Deployment via GitHub"
+format: revealjs
+---
+
+---
+title: "Intermediate GitHub & R Code Deployment"
+format: revealjs
+editor: visual
+---
+
+## Workshop Goals
+- Deploy and use R scripts via GitHub (non-packaged)
+- Deploy R code as a package via GitHub
+
+## What *Won’t* Be Covered
+
+This is an **intermediate** course.
+
+We assume you've already covered:
+
+- GitHub basics (cloning, pushing, committing)
+- GitHub Flow
+- Conflict resolution and collaboration patterns
+
+> **Reminder:** Help each other, pair up, group up as needed.
+
+## Primary Resources
+
+- Happy Git With R –<br>
+[https://happygitwithr.com/](https://happygitwithr.com/)
+- R Packages (2e) –<br>
+[https://r-pkgs.org/](https://r-pkgs.org/)
+- Rtools for R pkg developers (for windows) –<br>
+[https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/)
+- Xcode developer tools for R pkg developers (for macOS) –<br>
+`xcode-select --install`
+
+# R Code Deployment
+
+## Part 1: Using GitHub to Share R Scripts
+
+- You can use GitHub to store:
+  - R scripts (`.R`)
+  - Quarto documents
+  - Reproducible examples
+- Great for small projects and team collaboration
+
+---
+
+## Example Folder Structure
+
+```
+project-name
+├── analysis
+│   └── my_script.R
+├── README.md
+└── .gitignore
+```
+
+> 📌 **Hands-On**: Clone starter repo, add/edit script, push changes.
+
+---
+
+## Part 2: R Packages - A Step Further
+
+### Why Package Your Code?
+
+- Reuse and share functions across projects
+- Version control your analytical toolkit
+- Enable others to install with `devtools::install_github()`
+
+---
+
+## What’s In a Minimal R Package?
+
+- `DESCRIPTION` file (metadata)
+- `R/` folder with your functions
+- `NAMESPACE` file (auto-generated)
+- Optional: tests, vignettes, dependencies
+
+---
+
+## Setup with `{usethis}`
+
+#### 1. Install `usethis` and complete project pkg setup
+
+```r
+install.packages("usethis")
+```
+
+<br>
+
+#### 2. Change your working directory to the location you want to store the new pkg.
+
+```r
+# setwd("C:/Users/SRE1303/LocalSave/InterestGroups/cascadia-r-conf/")
+setwd("C:/path/where/should/your/testpkg/go")
+```
+
+## Setup with `{usethis}`
+
+#### 3. Check git setup
+Check git
+
+```shell
+git --version
+```
+
+Check your git config (match your GitHub account)
+
+```shell
+git config user.name
+git config user.email
+```
+
+Set your git config user name as needed
+
+```shell
+git config --global user.name "Your Name"
+```
+
+Set your git config email as needed
+
+```shell
+git config --global user.email "you.email@example.com"
+```
+
+## Setup with `{usethis}`
+
+#### 4. Run pkg project setup
+
+``` r
+# Run next lines one line at a time
+usethis::create_package("testpkg")
+usethis::use_git() # initializes git repository, adds initial commit
+usethis::create_github_token() # create and securely store your PAT
+gitcreds::gitcreds_set()
+usethis::use_github() # publishes to your GitHub account
+usethis::use_roxygen_md() # check DESCRIPTION for roxygen notes
+usethis::use_r("my_function") # create or modify a function
+```
+
+Add this to the R script that opens in RStudio after `use_r`
+
+``` r
+#' Say Hello
+#'
+#' Prints a greeting.
+#' @export
+hello <- function() {
+  print("Hello, world!")
+}
+```
+
+## Setup with `{usethis}`
+
+Lastly, `document` your new function and pkg (you'll rerun this function a lot as you develop a pkg)
+
+```r
+devtools::document() # document pkg, rerun after pkg changes
+```
+
+Optional: Add a license to prevent Metadata error when testing your function
+
+```r
+usethis::use_mit_license("Your Name")
+```
+
+## Test, Install, Publish, Share!
+
+Now, in the `build` pane next to `git` panes
+
+  - Click `Test`
+  - Click `Install` if you are satisfied with the tests
+  - After install is complete, try your function in the console.
+  - If it's working, make another commit to GitHub with your updated files.
+
+<!-- ## Setup with `{usethis}` -->
+
+<!-- Optional, but highly recommended if you want longevity, easier collaboration, portability, reproducibility, etc. -->
+
+<!-- **Document your dependencies!** -->
+
+<!-- ```r -->
+<!-- # install renv (or for advanced R users, check out rv) -->
+<!-- install.packages("renv") -->
+
+<!-- # initialize renv in your project -->
+<!-- renv::init() -->
+
+<!-- # take a snapshot, do this again if you dev with more pkgs -->
+<!-- renv::snapshot() -->
+
+------------------------------------------------------------------------
+
+## Install from GitHub
+
+``` r
+devtools::install_github("DOH-SRE1303/testpkg")
+```
+
+-   Installs your package from GitHub
+-   Works in scripts, R projects, RStudio
+
+> You'll probably need Rtools to build most R packages from source (i.e. GitHub repo).
+
+> Later, you can provide other means for obtaining your package without Rtools
+
+------------------------------------------------------------------------
+
+## Common Issues
+
+Missing or malformed `DESCRIPTION`
+
+Forgot to document (`devtools::document()`)
+
+Push not reflected on GitHub (check remotes)
+  
+  - in terminal:
+  
+    ```shell
+    git remote -v
+    ```
+    
+  - or in R console:
+  
+    ```r
+    system("git remote -v")
+    ```
+
+------------------------------------------------------------------------
+
+## Wrap-Up
+
+-   GitHub supports both scripts and packages
+-   Packages are best for reusable logic
+-   Use `{usethis}`, `{devtools}`, `{roxygen2}` to streamline
+
+------------------------------------------------------------------------
+
+## Resources
+
+-   [r-pkgs.org](https://r-pkgs.org/)
+-   [Happy Git with R](https://happygitwithr.com/)
+-   [GitHub Docs](https://docs.github.com/)
+
+
